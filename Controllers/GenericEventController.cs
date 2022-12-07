@@ -24,6 +24,7 @@ namespace event_store_api.Controllers
         {
             _logger.LogInformation("received generic event submission request for stream {}", genericEvent.eventStream);
             _genericEventService.publishEvent(genericEvent);
+            _logger.LogInformation("completed generic event submission request for stream {}", genericEvent.eventStream);
             return 200;   
         }
 
@@ -31,7 +32,9 @@ namespace event_store_api.Controllers
         public List <EventEntity> getEvents()
         {
             _logger.LogInformation("received get generic event submissions request");
-            return _genericEventService.getPublishedEvents();
+            List<EventEntity> publishedEvents = _genericEventService.getPublishedEvents();
+            _logger.LogInformation("completed get generic event submissions request");
+            return publishedEvents;
         }
     }
 }
