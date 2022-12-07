@@ -1,5 +1,6 @@
 ﻿using event_store_api.Models;
 using event_store_api.Repository;
+using SharpCompress.Common;
 
 namespace event_store_api.Services
 {
@@ -21,12 +22,24 @@ namespace event_store_api.Services
             this._genericEventManager.OnGenericEvent(genericEvent);
         }
 
+        public List<EventEntity> getPublishedEvents()
+        {
+            _logger.LogInformation("fetching published events");
+            long milliseconds = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+            List<EventEntity> events = _eventEntityRepository.GetAsync().Result.ToList();
+            long timeTaken = DateTimeOffset.Now.ToUnixTimeMilliseconds() - milliseconds;
+            this._logger.LogInformation("done fetching published events, found {} events, took {} millis", events.Count, timeTaken);
+            return events;
+
+        }
         private void publishEvent(Object sender, GenericEventArgs e)
         {
             var entity = MapGenericEventEntity(e);
             this._logger.LogInformation("persisting generic event {}", entity.Id);
+            long milliseconds = DateTimeOffset.Now.ToUnixTimeMilliseconds();
             this._eventEntityRepository.CreateAsync(entity).Wait();
-            this._logger.LogInformation("done persisting generic event {}", entity.Id);
+            long timeTaken = DateTimeOffset.Now.ToUnixTimeMilliseconds() - milliseconds;
+            this._logger.LogInformation("done persisting generic event {}, took {} millis", entity.Id, timeTaken);
         }
 
         private static EventEntity MapGenericEventEntity(GenericEventArgs genericEvent)

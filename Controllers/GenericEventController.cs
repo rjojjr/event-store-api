@@ -26,5 +26,12 @@ namespace event_store_api.Controllers
             _genericEventService.publishEvent(genericEvent);
             return 200;   
         }
+
+        [HttpGet]
+        public List <EventEntity> getEvents()
+        {
+            _logger.LogInformation("received get generic event submissions request");
+            return _genericEventService.getPublishedEvents();
+        }
     }
 }
