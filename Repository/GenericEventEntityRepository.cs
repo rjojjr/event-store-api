@@ -12,8 +12,14 @@ namespace event_store_api.Repository
         public GenericEventEntityRepository(
             IOptions<EventStoreDatabaseConfig> eventStoreDatabaseConfig)
         {
-            var mongoClient = new MongoClient(
-                eventStoreDatabaseConfig.Value.ConnectionString);
+
+            MongoCredential credential = MongoCredential.CreateCredential("admin", eventStoreDatabaseConfig.Value.Username, eventStoreDatabaseConfig.Value.Password);
+            var settings = new MongoClientSettings
+            {
+                Credential = credential,
+                Server = new MongoServerAddress(eventStoreDatabaseConfig.Value.Host, eventStoreDatabaseConfig.Value.Port)
+            };
+            var mongoClient = new MongoClient(settings);
 
             var mongoDatabase = mongoClient.GetDatabase(
                 eventStoreDatabaseConfig.Value.DatabaseName);

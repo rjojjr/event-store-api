@@ -12,12 +12,8 @@ namespace event_store_api.Models
             this.Id = Guid.NewGuid().ToString();
         }
 
+        public string Id { get; set; } = null!;
 
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string? Id { get; set; }
-
-        [BsonElement("stream")]
         public string eventStream { get; set; } = null!;
 
         public string eventName { get; set; } = null!;

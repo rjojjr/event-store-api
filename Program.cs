@@ -1,5 +1,4 @@
 using event_store_api.Config;
-using event_store_api.Models;
 using event_store_api.Repository;
 using event_store_api.Services;
 
