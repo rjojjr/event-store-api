@@ -10,7 +10,7 @@ public class GenericEventManager
         this.eventSubmitted = eventSubmitted;
     }
 
-    public void OnGenericEvent(GenericEventHttpModel genericEvent){
+    public void OnGenericEvent(GenericEventHttpRequestModel genericEvent){
         GenericEventArgs args = new GenericEventArgs();
         args.eventStream = genericEvent.eventStream;
         args.eventName = genericEvent.eventName;

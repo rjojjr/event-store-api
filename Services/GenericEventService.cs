@@ -17,7 +17,7 @@ namespace event_store_api.Services
             this._logger = logger;
         }
 
-        public void publishEvent(GenericEventHttpModel genericEvent)
+        public void publishEvent(GenericEventHttpRequestModel genericEvent)
         {
             this._genericEventManager.OnGenericEvent(genericEvent);
         }

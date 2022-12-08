@@ -1,16 +1,8 @@
 ﻿namespace event_store_api.Models
 {
-    public class GenericEventHttpModel
+    public class GenericEventHttpModel : GenericEventHttpRequestModel
     {
         public string id { get; set; } = null!;
-
-        public string eventStream { get; set; } = null!;
-
-        public string eventName { get; set; } = null!;
-
-        public IList<EventProperty> eventProperties { get; set; } = new List<EventProperty>();
-
- 
         public static GenericEventHttpModel FromEntity(EventEntity eventEntity)
         {
             var model = new GenericEventHttpModel();
