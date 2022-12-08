@@ -20,19 +20,18 @@ namespace event_store_api.Controllers
 
         [HttpPost]
        // [Route("")]
-        public int submitEvent(GenericEventHttpRequestModel genericEvent)
+        public void SubmitEvent(GenericEventHttpRequestModel genericEvent)
         {
             _logger.LogInformation("received generic event submission request for stream {}", genericEvent.EventStream);
-            _genericEventService.publishEvent(genericEvent);
-            _logger.LogInformation("completed generic event submission request for stream {}", genericEvent.EventStream);
-            return 200;   
+            _genericEventService.PublishEvent(genericEvent);
+            _logger.LogInformation("completed generic event submission request for stream {}", genericEvent.EventStream); 
         }
 
         [HttpGet]
-        public List <GenericEventHttpModel> getEvents()
+        public IList <GenericEventHttpModel> GetEvents()
         {
             _logger.LogInformation("received get generic event submissions request");
-            List<GenericEventHttpModel> publishedEvents = _genericEventService.getPublishedEvents();
+            IList<GenericEventHttpModel> publishedEvents = _genericEventService.GetPublishedEvents();
             _logger.LogInformation("completed get generic event submissions request");
             return publishedEvents;
         }

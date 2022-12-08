@@ -6,39 +6,44 @@ namespace event_store_api.Services
 {
     public class GenericEventService
     {
-        private GenericEventManager _genericEventManager;
-        private GenericEventEntityRepository _eventEntityRepository;
+        private readonly GenericEventManager _genericEventManager;
+        private readonly GenericEventEntityRepository _eventEntityRepository;
         private readonly ILogger<GenericEventService> _logger;
 
         public GenericEventService(GenericEventEntityRepository genericEventEntityRepository, ILogger<GenericEventService> logger)
         {
-            this._genericEventManager = new GenericEventManager(this.publishEvent);
+            this._genericEventManager = new GenericEventManager(this.PublishEvent);
             this._eventEntityRepository = genericEventEntityRepository;
             this._logger = logger;
         }
 
-        public void publishEvent(GenericEventHttpRequestModel genericEvent)
+        public void PublishEvent(GenericEventHttpRequestModel genericEvent)
         {
             this._genericEventManager.OnGenericEvent(genericEvent);
         }
 
-        public List<GenericEventHttpModel> getPublishedEvents()
+        public IList<GenericEventHttpModel> GetPublishedEvents()
         {
             _logger.LogInformation("fetching published events");
             long milliseconds = DateTimeOffset.Now.ToUnixTimeMilliseconds();
             List<EventEntity> events = _eventEntityRepository.GetAsync().Result.ToList();
             long timeTaken = DateTimeOffset.Now.ToUnixTimeMilliseconds() - milliseconds;
             this._logger.LogInformation("done fetching published events, found {} events, took {} millis", events.Count, timeTaken);
+
+            return genericEventHttpModels(events);
+        }
+
+        private IList<GenericEventHttpModel> genericEventHttpModels(IList<EventEntity> events)
+        {
             List<GenericEventHttpModel> models = new List<GenericEventHttpModel>();
-            foreach(EventEntity Event in events)
+            foreach (EventEntity Event in events)
             {
                 models.Add(GenericEventHttpModel.FromEntity(Event));
             }
 
             return models;
-
         }
-        private void publishEvent(Object sender, GenericEventArgs e)
+        private void PublishEvent(Object sender, GenericEventArgs e)
         {
             var entity = MapGenericEventEntity(e);
             this._logger.LogInformation("persisting generic event {}", entity.Id);
