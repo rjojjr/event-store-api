@@ -17,19 +17,25 @@ namespace event_store_api.Services
             this._logger = logger;
         }
 
-        public void publishEvent(GenericEvent genericEvent)
+        public void publishEvent(GenericEventHttpModel genericEvent)
         {
             this._genericEventManager.OnGenericEvent(genericEvent);
         }
 
-        public List<EventEntity> getPublishedEvents()
+        public List<GenericEventHttpModel> getPublishedEvents()
         {
             _logger.LogInformation("fetching published events");
             long milliseconds = DateTimeOffset.Now.ToUnixTimeMilliseconds();
             List<EventEntity> events = _eventEntityRepository.GetAsync().Result.ToList();
             long timeTaken = DateTimeOffset.Now.ToUnixTimeMilliseconds() - milliseconds;
             this._logger.LogInformation("done fetching published events, found {} events, took {} millis", events.Count, timeTaken);
-            return events;
+            List<GenericEventHttpModel> models = new List<GenericEventHttpModel>();
+            foreach(EventEntity Event in events)
+            {
+                models.Add(GenericEventHttpModel.FromEntity(Event));
+            }
+
+            return models;
 
         }
         private void publishEvent(Object sender, GenericEventArgs e)
@@ -47,8 +53,7 @@ namespace event_store_api.Services
             var entity = new EventEntity();
             entity.eventStream = genericEvent.eventStream;
             entity.eventName = genericEvent.eventName;
-            entity.eventProperty = genericEvent.eventProperty;  
-            entity.eventValue = genericEvent.eventValue;
+            entity.eventProperties = genericEvent.eventProperties;
 
             return entity;
         }

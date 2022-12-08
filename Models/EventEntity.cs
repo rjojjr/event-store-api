@@ -18,8 +18,6 @@ namespace event_store_api.Models
 
         public string eventName { get; set; } = null!;
 
-        public string eventProperty { get; set; } = null!;
-
-        public string eventValue { get; set; } = null!;
+        public IList<EventProperty> eventProperties { get; set; } = null!;
     }
 }

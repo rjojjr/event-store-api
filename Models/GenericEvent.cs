@@ -6,8 +6,6 @@
 
         public string eventName { get; set; } = null!;
 
-        public string eventProperty { get; set; } = null!;
-
-        public string eventValue { get; set; } = null!;
+        public IDictionary<string, object> eventProperties = IDictionary<string, object>
     }
 }
