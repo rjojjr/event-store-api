@@ -14,7 +14,7 @@ public class GenericEventManager
         GenericEventArgs args = new GenericEventArgs();
         args.eventStream = genericEvent.eventStream;
         args.eventName = genericEvent.eventName;
-        args.eventProperties = genericEvent.eventProperties;
+        args.eventAttributes = genericEvent.eventAttributes;
         OnEventReceived(args);
     }
 
@@ -36,6 +36,6 @@ public class GenericEventManager
 
         public string eventName { get; set; } = null!;
 
-        public IList<EventProperty> eventProperties { get; set; } = new List<EventProperty>();
+        public IList<EventAttribute> eventAttributes { get; set; } = new List<EventAttribute>();
 }
 

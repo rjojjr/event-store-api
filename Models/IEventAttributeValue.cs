@@ -1,8 +1,8 @@
 ﻿namespace event_store_api.Models
 {
-    public interface IEventPropertyValue
+    public interface IEventAttributeValue
     {
         string ValueType { get; set; } 
-        string EventPropertyValue { get; set; }
+        string EventAttributeValue { get; set; }
     }
 }

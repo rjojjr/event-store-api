@@ -7,7 +7,7 @@
 
         public string eventName { get; set; } = null!;
 
-        public IList<EventProperty> eventProperties { get; set; } = new List<EventProperty>();
+        public IList<EventAttribute> eventAttributes { get; set; } = new List<EventAttribute>();
 
     }
 }

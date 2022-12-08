@@ -9,7 +9,7 @@
             model.id = eventEntity.Id;
             model.eventStream = eventEntity.eventStream;
             model.eventName = eventEntity.eventName;
-            model.eventProperties = eventEntity.eventProperties;
+            model.eventAttributes = eventEntity.eventAttributes;
 
             return model;
         }
