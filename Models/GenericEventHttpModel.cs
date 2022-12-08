@@ -14,6 +14,7 @@
             model.EventName = eventEntity.EventName;
             model.EventAttributes = eventEntity.EventAttributes;
             model.PersistedAt = eventEntity.PersistedAt;
+            model.EventType = eventEntity.EventType;
 
             return model;
         }

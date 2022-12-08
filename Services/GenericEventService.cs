@@ -52,6 +52,7 @@ namespace event_store_api.Services
         {
             var entity = new EventEntity();
             entity.EventStream = genericEvent.EventStream;
+            entity.EventType = genericEvent.EventType;
             entity.EventName = genericEvent.EventName;
             entity.EventAttributes = genericEvent.EventAttributes;
 

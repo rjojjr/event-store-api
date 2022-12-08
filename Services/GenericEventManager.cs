@@ -13,6 +13,7 @@ public class GenericEventManager
     public void OnGenericEvent(GenericEventHttpRequestModel genericEvent){
         GenericEventArgs args = new GenericEventArgs();
         args.EventStream = genericEvent.EventStream;
+        args.EventType = genericEvent.EventType;
         args.EventName = genericEvent.EventName;
         args.EventAttributes = genericEvent.EventAttributes;
         OnEventReceived(args);
@@ -33,6 +34,8 @@ public class GenericEventManager
     public class GenericEventArgs : EventArgs
     {
         public string EventStream { get; set; } = null!;
+
+        public string EventType { get; set; } = null!;
 
         public string EventName { get; set; } = null!;
 
