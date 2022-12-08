@@ -34,8 +34,8 @@ namespace event_store_api.Repository
         public async Task<EventEntity?> GetAsync(string id) =>
             await _eventsCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
 
-        public async Task CreateAsync(EventEntity newBook) =>
-            await _eventsCollection.InsertOneAsync(newBook);
+        public async Task CreateAsync(EventEntity newEvent) => 
+            await _eventsCollection.InsertOneAsync(newEvent.withCurrentTime());
 
         public async Task UpdateAsync(string id, EventEntity updatedBook) =>
             await _eventsCollection.ReplaceOneAsync(x => x.Id == id, updatedBook);

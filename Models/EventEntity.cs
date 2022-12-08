@@ -19,5 +19,13 @@ namespace event_store_api.Models
         public string eventName { get; set; } = null!;
 
         public IList<EventAttribute> eventAttributes { get; set; } = null!;
+
+        public DateTime persistedAt { get; set; }
+
+        public EventEntity withCurrentTime()
+        {
+            persistedAt = DateTime.UtcNow;
+            return this;
+        }
     }
 }
