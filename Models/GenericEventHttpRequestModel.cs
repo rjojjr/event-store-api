@@ -3,11 +3,11 @@
     public class GenericEventHttpRequestModel
     {
 
-        public string eventStream { get; set; } = null!;
+        public string EventStream { get; set; } = null!;
 
-        public string eventName { get; set; } = null!;
+        public string EventName { get; set; } = null!;
 
-        public IList<EventAttribute> eventAttributes { get; set; } = new List<EventAttribute>();
+        public IList<EventAttribute> EventAttributes { get; set; } = new List<EventAttribute>();
 
     }
 }

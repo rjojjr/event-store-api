@@ -13,11 +13,18 @@ namespace event_store_api.Repository
             IOptions<EventStoreDatabaseConfig> eventStoreDatabaseConfig)
         {
 
-            MongoCredential credential = MongoCredential.CreateCredential("admin", eventStoreDatabaseConfig.Value.Username, eventStoreDatabaseConfig.Value.Password);
+            MongoCredential credential = MongoCredential.CreateCredential(
+                "admin", 
+                eventStoreDatabaseConfig.Value.Username,
+                eventStoreDatabaseConfig.Value.Password
+            );
             var settings = new MongoClientSettings
             {
                 Credential = credential,
-                Server = new MongoServerAddress(eventStoreDatabaseConfig.Value.Host, eventStoreDatabaseConfig.Value.Port)
+                Server = new MongoServerAddress(
+                    eventStoreDatabaseConfig.Value.Host, 
+                    eventStoreDatabaseConfig.Value.Port
+                )
             };
             var mongoClient = new MongoClient(settings);
 
@@ -35,10 +42,10 @@ namespace event_store_api.Repository
             await _eventsCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
 
         public async Task CreateAsync(EventEntity newEvent) => 
-            await _eventsCollection.InsertOneAsync(newEvent.withCurrentTime());
+            await _eventsCollection.InsertOneAsync(newEvent.WithCurrentTime());
 
-        public async Task UpdateAsync(string id, EventEntity updatedBook) =>
-            await _eventsCollection.ReplaceOneAsync(x => x.Id == id, updatedBook);
+        public async Task UpdateAsync(string id, EventEntity updatedEvent) =>
+            await _eventsCollection.ReplaceOneAsync(x => x.Id == id, updatedEvent);
 
         public async Task RemoveAsync(string id) =>
             await _eventsCollection.DeleteOneAsync(x => x.Id == id);

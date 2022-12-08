@@ -22,9 +22,9 @@ namespace event_store_api.Controllers
        // [Route("")]
         public int submitEvent(GenericEventHttpRequestModel genericEvent)
         {
-            _logger.LogInformation("received generic event submission request for stream {}", genericEvent.eventStream);
+            _logger.LogInformation("received generic event submission request for stream {}", genericEvent.EventStream);
             _genericEventService.publishEvent(genericEvent);
-            _logger.LogInformation("completed generic event submission request for stream {}", genericEvent.eventStream);
+            _logger.LogInformation("completed generic event submission request for stream {}", genericEvent.EventStream);
             return 200;   
         }
 

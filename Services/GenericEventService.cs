@@ -51,9 +51,9 @@ namespace event_store_api.Services
         private static EventEntity MapGenericEventEntity(GenericEventArgs genericEvent)
         {
             var entity = new EventEntity();
-            entity.eventStream = genericEvent.eventStream;
-            entity.eventName = genericEvent.eventName;
-            entity.eventAttributes = genericEvent.eventAttributes;
+            entity.EventStream = genericEvent.EventStream;
+            entity.EventName = genericEvent.EventName;
+            entity.EventAttributes = genericEvent.EventAttributes;
 
             return entity;
         }

@@ -1,7 +1,4 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
-
-namespace event_store_api.Models
+﻿namespace event_store_api.Models
 {
 
     public class EventEntity
@@ -14,17 +11,17 @@ namespace event_store_api.Models
 
         public string Id { get; set; } = null!;
 
-        public string eventStream { get; set; } = null!;
+        public string EventStream { get; set; } = null!;
 
-        public string eventName { get; set; } = null!;
+        public string EventName { get; set; } = null!;
 
-        public IList<EventAttribute> eventAttributes { get; set; } = null!;
+        public IList<EventAttribute> EventAttributes { get; set; } = null!;
 
-        public DateTime persistedAt { get; set; }
+        public DateTime PersistedAt { get; set; }
 
-        public EventEntity withCurrentTime()
+        public EventEntity WithCurrentTime()
         {
-            persistedAt = DateTime.UtcNow;
+            PersistedAt = DateTime.UtcNow;
             return this;
         }
     }

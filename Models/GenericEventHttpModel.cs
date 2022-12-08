@@ -2,14 +2,18 @@
 {
     public class GenericEventHttpModel : GenericEventHttpRequestModel
     {
-        public string id { get; set; } = null!;
+        public string Id { get; set; } = null!;
+
+        public DateTime PersistedAt { get; set; }
+
         public static GenericEventHttpModel FromEntity(EventEntity eventEntity)
         {
             var model = new GenericEventHttpModel();
-            model.id = eventEntity.Id;
-            model.eventStream = eventEntity.eventStream;
-            model.eventName = eventEntity.eventName;
-            model.eventAttributes = eventEntity.eventAttributes;
+            model.Id = eventEntity.Id;
+            model.EventStream = eventEntity.EventStream;
+            model.EventName = eventEntity.EventName;
+            model.EventAttributes = eventEntity.EventAttributes;
+            model.PersistedAt = eventEntity.PersistedAt;
 
             return model;
         }
