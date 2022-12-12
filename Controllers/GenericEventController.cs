@@ -36,5 +36,15 @@ namespace event_store_api.Controllers
             _logger.LogInformation("completed get generic event submissions request");
             return publishedEvents;
         }
+
+        [HttpGet]
+        [Route("attribute")]
+        public IList<GenericEventHttpModel> GetEventsByAttribute([FromQuery] EventAttributeSearchParameters parameters)
+        {
+            _logger.LogInformation("received get generic event submissions by attribute request");
+            IList<GenericEventHttpModel> publishedEvents = _genericEventService.getEventsWithAttribute(parameters.AttributeName, parameters.AttributeValue);
+            _logger.LogInformation("completed get generic event submissions by attribute request");
+            return publishedEvents;
+        }
     }
 }

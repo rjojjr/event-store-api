@@ -22,6 +22,13 @@ namespace event_store_api.Services
             this._genericEventManager.OnGenericEvent(genericEvent);
         }
 
+        public IList<GenericEventHttpModel> getEventsWithAttribute(string attributeName, string attributeValue)
+        {
+            var entities = _eventEntityRepository.FindByEventAttributeValue(attributeName, attributeValue);
+
+            return genericEventHttpModels(entities);
+        }
+
         public IList<GenericEventHttpModel> GetPublishedEvents()
         {
             _logger.LogInformation("fetching published events");

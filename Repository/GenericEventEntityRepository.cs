@@ -2,6 +2,7 @@
 using event_store_api.Models;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
+using static MongoDB.Driver.WriteConcern;
 
 namespace event_store_api.Repository
 {
@@ -38,8 +39,14 @@ namespace event_store_api.Repository
                 eventStoreDatabaseConfig.Value.EventsCollectionName);
         }
 
+        public List<EventEntity> FindByEventAttributeValue(string name, string value)
+        {
+            return _eventsCollection.Find(x => x.EventAttributes.Any(y => y.EventAttributeValue.EventAttributeValue == value && y.EventAttributeName == name)).ToList();
+        }
+
         public async Task<List<EventEntity>> GetAsync() =>
             await _eventsCollection.Find(_ => true).ToListAsync();
+          
 
         public async Task<EventEntity?> GetAsync(string id) =>
             await _eventsCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
