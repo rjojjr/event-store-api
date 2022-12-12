@@ -19,7 +19,6 @@ namespace event_store_api.Controllers
         }
 
         [HttpPost]
-       // [Route("")]
         public string SubmitEvent(GenericEventHttpRequestModel genericEvent)
         {
             _logger.LogInformation("received generic event submission request for stream {}", genericEvent.EventStream);
@@ -29,22 +28,22 @@ namespace event_store_api.Controllers
         }
 
         [HttpGet]
-        public IList <GenericEventHttpModel> GetEvents()
+        public GetEventsResponse GetEvents()
         {
             _logger.LogInformation("received get generic event submissions request");
             IList<GenericEventHttpModel> publishedEvents = _genericEventService.GetPublishedEvents();
             _logger.LogInformation("completed get generic event submissions request");
-            return publishedEvents;
+            return new GetEventsResponse(publishedEvents.Count(), publishedEvents);
         }
 
         [HttpGet]
         [Route("attribute")]
-        public IList<GenericEventHttpModel> GetEventsByAttribute([FromQuery] EventAttributeSearchParameters parameters)
+        public GetEventsResponse GetEventsByAttribute([FromQuery] EventAttributeSearchParameters parameters)
         {
             _logger.LogInformation("received get generic event submissions by attribute request");
             IList<GenericEventHttpModel> publishedEvents = _genericEventService.getEventsWithAttribute(parameters.AttributeName, parameters.AttributeValue);
             _logger.LogInformation("completed get generic event submissions by attribute request");
-            return publishedEvents;
+            return new GetEventsResponse(publishedEvents.Count(), publishedEvents);
         }
     }
 }
