@@ -37,6 +37,6 @@ services:
       MONGO_INITDB_DATABASE: event_store
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: PASSW0rd
-    command: [--auth]
+    command: mongod --smallfiles --bind_ip_all
     volumes:
       - /home/dev/event-store/mongo:/data/db
