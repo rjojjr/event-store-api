@@ -24,7 +24,10 @@ namespace event_store_api.Repository
                 Server = new MongoServerAddress(
                     eventStoreDatabaseConfig.Value.Host, 
                     eventStoreDatabaseConfig.Value.Port
-                )
+                ),
+                SocketTimeout = new TimeSpan(0, 3, 0),
+                WaitQueueTimeout = new TimeSpan(0, 3, 0),
+                ConnectTimeout = new TimeSpan(0, 3, 0)
             };
             var mongoClient = new MongoClient(settings);
 

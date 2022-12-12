@@ -1,9 +1,12 @@
-﻿namespace event_store_api.Models
+﻿using System.Text.Json.Serialization;
+
+namespace event_store_api.Models
 {
     public class GenericEventHttpModel : GenericEventHttpRequestModel
     {
         public string Id { get; set; } = null!;
 
+        [JsonPropertyName("persistedAt")]
         public DateTime PersistedAt { get; set; }
 
         public static GenericEventHttpModel FromEntity(EventEntity eventEntity)

@@ -2,6 +2,31 @@
 
 services:
 
+  web_scraper:
+    image: bagend-web-scraper
+    container_name: bagend-web-scraper
+    ports:
+       - 8090:8090
+    environment:
+      ASPNETCORE_URLS: http://*:8090
+      ASPNETCORE_ENVIRONMENT: Development
+      EVENT_API_CONFIG_URL: http://localhost:8091
+      MongoDbConfig:Host: mongo
+    depends_on:
+      - "mongo"
+
+  event_api:
+    image: bagend-event-api
+    container_name: bagend-event-api
+    ports:
+       - 8091:8091
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://*:8091
+      MongoDbConfig:Host: mongo
+    depends_on:
+      - "mongo"
+
   mongo:
     image: mongo
     container_name: mongo
@@ -14,4 +39,4 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: PASSW0rd
     command: [--auth]
     volumes:
-      - /c/Users/kirchner/event-store/mongo:/data/db
+      - /Users/kirchner/event-store/mongo:/data/db

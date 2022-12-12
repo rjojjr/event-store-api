@@ -48,7 +48,7 @@ namespace event_store_api.Services
             var entity = MapGenericEventEntity(e);
             this._logger.LogInformation("persisting generic event {}", entity.Id);
             long milliseconds = DateTimeOffset.Now.ToUnixTimeMilliseconds();
-            this._eventEntityRepository.CreateAsync(entity).Wait(new TimeSpan(0, 1, 0));
+            this._eventEntityRepository.CreateAsync(entity).Wait(new TimeSpan(0, 3, 0));
             long timeTaken = DateTimeOffset.Now.ToUnixTimeMilliseconds() - milliseconds;
             this._logger.LogInformation("done persisting generic event {}, took {} millis", entity.Id, timeTaken);
         }
