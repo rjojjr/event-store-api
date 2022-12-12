@@ -13,7 +13,7 @@ services:
       EVENT_API_CONFIG_URL: http://localhost:8091
       MongoDbConfig:Host: mongo
     depends_on:
-      - "mongo"
+      - "event_api"
 
   event_api:
     image: bagend-event-api
