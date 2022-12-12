@@ -39,4 +39,4 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: PASSW0rd
     command: [--auth]
     volumes:
-      - /Users/kirchner/event-store/mongo:/data/db
+      - /home/dev/event-store/mongo:/data/db
