@@ -18,10 +18,10 @@ namespace event_store_api.Models
         }
 
         [JsonPropertyName("resultCount")]
-        private int ResultCount { get; set; }
+        public int ResultCount { get; set; }
 
         [JsonPropertyName("results")]
-        private IList<GenericEventHttpModel> Results { get; set; } = new List<GenericEventHttpModel>();
+        public IList<GenericEventHttpModel> Results { get; set; } = new List<GenericEventHttpModel>();
 	}
 }
 
