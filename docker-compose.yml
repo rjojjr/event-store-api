@@ -39,4 +39,4 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: PASSW0rd
     command: mongod --bind_ip_all --auth
     volumes:
-      - /home/dev/event-store/mongo:/data/db
+      - ~/event-store/mongo:/data/db
