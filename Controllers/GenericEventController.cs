@@ -31,7 +31,7 @@ namespace event_store_api.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetEvents(string eventStream, string eventName)
+        public IActionResult GetEvents(string eventStream = null, string eventName = null)
         {
             return ExecuteWithExceptionHandler(() =>
             {

@@ -1,4 +1,5 @@
 ﻿#!/bin/bash
+
 git pull
 
 echo 'building bagend-event-api'
