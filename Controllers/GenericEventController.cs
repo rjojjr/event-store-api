@@ -31,13 +31,16 @@ namespace event_store_api.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetEvents(string eventStream = null, string eventName = null)
+        public IActionResult GetEvents([FromQuery]string eventStream="", [FromQuery]string eventName="")
         {
+            var parsedStream = eventStream.Equals("") ? null : eventStream;
+            var parsedName = eventName.Equals("") ? null : eventName;
+
             return ExecuteWithExceptionHandler(() =>
             {
-                _logger.LogInformation("received get generic event submissions request stream = {}, name = {}", eventStream, eventName);
-                IList<GenericEventHttpModel> publishedEvents = _genericEventService.GetPublishedEvents(eventStream, eventName);
-                _logger.LogInformation("completed get generic event submissions request stream = {}, name = {}", eventStream, eventName);
+                _logger.LogInformation("received get generic event submissions request stream = {}, name = {}", parsedStream, parsedName);
+                IList<GenericEventHttpModel> publishedEvents = _genericEventService.GetPublishedEvents(parsedStream, parsedName);
+                _logger.LogInformation("completed get generic event submissions request stream = {}, name = {}", parsedStream, parsedName);
                 return Ok(new GetEventsResponse(publishedEvents.Count(), publishedEvents));
             });
         }
