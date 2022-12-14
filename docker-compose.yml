@@ -2,16 +2,30 @@
 
 services:
 
+  forcast_ml:
+    image: bagend-ml
+    container_name: bagend-ml
+    ports:
+       - 8090:8090
+    environment:
+      ASPNETCORE_URLS: http://*:8092
+      ASPNETCORE_ENVIRONMENT: Development
+      EVENT_API_CONFIG_URL: http://localhost:8091
+    depends_on:
+      - "event_api"
+
   web_scraper:
     image: bagend-web-scraper
     container_name: bagend-web-scraper
     ports:
-       - 8090:8090
+       - 8092:8092
     environment:
       ASPNETCORE_URLS: http://*:8090
       ASPNETCORE_ENVIRONMENT: Development
       EVENT_API_CONFIG_URL: http://localhost:8091
       MongoDbConfig:Host: mongo
+    volumes:
+      - ~/event-store/models:/var/bagend-ml/models
     depends_on:
       - "event_api"
 

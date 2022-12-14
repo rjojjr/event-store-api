@@ -1,6 +1,7 @@
 using event_store_api.Config;
 using event_store_api.Repository;
 using event_store_api.Services;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +28,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    
 }
 
 //app.UseHttpsRedirection();
