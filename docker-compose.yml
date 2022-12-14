@@ -11,6 +11,8 @@ services:
       ASPNETCORE_URLS: http://*:8092
       ASPNETCORE_ENVIRONMENT: Development
       EVENT_API_CONFIG_URL: http://localhost:8091
+    volumes:
+      - ~/event-store/models:/var/bagend-ml/models
     depends_on:
       - "event_api"
 
@@ -24,8 +26,6 @@ services:
       ASPNETCORE_ENVIRONMENT: Development
       EVENT_API_CONFIG_URL: http://localhost:8091
       MongoDbConfig:Host: mongo
-    volumes:
-      - ~/event-store/models:/var/bagend-ml/models
     depends_on:
       - "event_api"
 
