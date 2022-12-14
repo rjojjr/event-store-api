@@ -29,11 +29,11 @@ namespace event_store_api.Services
             return genericEventHttpModels(entities);
         }
 
-        public IList<GenericEventHttpModel> GetPublishedEvents()
+        public IList<GenericEventHttpModel> GetPublishedEvents(string eventStream, string eventName)
         {
             _logger.LogInformation("fetching published events");
             long milliseconds = DateTimeOffset.Now.ToUnixTimeMilliseconds();
-            List<EventEntity> events = _eventEntityRepository.GetAsync().Result.ToList();
+            List<EventEntity> events = _eventEntityRepository.GetAsync(eventStream, eventName).Result.ToList();
             long timeTaken = DateTimeOffset.Now.ToUnixTimeMilliseconds() - milliseconds;
             this._logger.LogInformation("done fetching published events, found {} events, took {} millis", events.Count, timeTaken);
 

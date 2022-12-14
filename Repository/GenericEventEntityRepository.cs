@@ -44,8 +44,40 @@ namespace event_store_api.Repository
             return _eventsCollection.Find(x => x.EventAttributes.Any(y => y.EventAttributeValue.EventAttributeValue == value && y.EventAttributeName == name)).ToList();
         }
 
-        public async Task<List<EventEntity>> GetAsync() =>
-            await _eventsCollection.Find(_ => true).ToListAsync();
+        public async Task<IList<EventEntity>> GetAsync(string eventStream, string eventName)
+        {
+            Func<Task<IList<EventEntity>>> getByStreamAndName = async () => {
+                return await _eventsCollection
+                    .Find(x => x.EventStream == eventStream && x.EventName == eventName)
+                    .ToListAsync();
+            };
+
+            Func<Task<IList<EventEntity>>> getByStream = async () => {
+                return await _eventsCollection
+                    .Find(x => x.EventStream == eventStream)
+                    .ToListAsync();
+            };
+
+            Func<Task<IList<EventEntity>>> getByName = async () => {
+                return await _eventsCollection
+                    .Find(x => x.EventStream == eventStream && x.EventName == eventName)
+                    .ToListAsync();
+            };
+
+            Func<Task<IList<EventEntity>>> getAll = async () => {
+                return await _eventsCollection
+                    .Find(_ => true)
+                    .ToListAsync();
+            };
+
+            Func<Func<Task<IList<EventEntity>>>> resolve = () =>
+            {
+                return eventStream != null && eventName != null ? getByStreamAndName
+                        : eventName != null ? getByName : eventStream != null ? getByStream : getAll;
+            };
+
+            return await resolve.Invoke().Invoke();
+        }
           
 
         public async Task<EventEntity?> GetAsync(string id) =>
