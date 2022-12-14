@@ -6,7 +6,7 @@ services:
     image: bagend-ml
     container_name: bagend-ml
     ports:
-       - 8090:8090
+       - 8092:8092
     environment:
       ASPNETCORE_URLS: http://*:8092
       ASPNETCORE_ENVIRONMENT: Development
@@ -18,7 +18,7 @@ services:
     image: bagend-web-scraper
     container_name: bagend-web-scraper
     ports:
-       - 8092:8092
+       - 8090:8090
     environment:
       ASPNETCORE_URLS: http://*:8090
       ASPNETCORE_ENVIRONMENT: Development
