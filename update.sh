@@ -1,10 +1,14 @@
 ﻿#!/bin/bash
 
+echo 'Bagend Docker Image Updater'
+echo 'v0.0.1'
+echo '--------'
+
+echo 'building bagend-event-api'
 git stash
 git pull
 git stash pop
 
-echo 'building bagend-event-api'
 docker build -t bagend-event-api .
 
 cd ../bagend-web-scraper
