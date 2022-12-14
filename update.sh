@@ -1,6 +1,8 @@
 ﻿#!/bin/bash
 
+git stash
 git pull
+git stash pop
 
 echo 'building bagend-event-api'
 docker build -t bagend-event-api .
