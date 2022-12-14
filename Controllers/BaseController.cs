@@ -9,12 +9,12 @@ namespace event_store_api.Controllers
 	public class BaseController : ControllerBase
 	{
 
-        public IActionResult ExecuteWithExceptionHandler(Func<IActionResult> func)
+        internal IActionResult ExecuteWithExceptionHandler(Func<IActionResult> func)
         {
             return (IActionResult)ExecuteWithExceptionHandler(func);
         }
 
-        public T ExecuteWithExceptionHandler<T>(Func<T> func)
+        internal T ExecuteWithExceptionHandler<T>(Func<T> func)
         {
             try
             {
@@ -30,7 +30,7 @@ namespace event_store_api.Controllers
             }
         }
 
-        public void ExecuteWithExceptionHandler(Action func)
+        internal void ExecuteWithExceptionHandler(Action func)
         {
             try
             {
