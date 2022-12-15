@@ -11,7 +11,7 @@ dumpDockerImages() {
 
 if [[ "$1" == '-d' ]]; then
   dumpDockerImages
-  elif [[ "$2" == '-d' ]]
+  fi
 
 echo 'building bagend-event-api'
 git stash
