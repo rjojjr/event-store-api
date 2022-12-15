@@ -9,7 +9,7 @@ dumpDockerImages() {
     docker rmi -f $(docker images -aq)
 }
 
-if [[ "$1" == '-d' ]]; then
+if [ "$1" == '-d' ]; then
     dumpDockerImages
     fi
 
@@ -32,7 +32,7 @@ docker build -t bagend-ml .
 
 cd ../event-store-api
 
-if [[ "$1" == '-r' ]]; then
+if [ "$1" == '-r' ]; then
     echo 'restarting bagend.service'
     systemctl restart bagend
     fi

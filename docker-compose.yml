@@ -2,7 +2,7 @@
 
 services:
 
-  forcast_ml:
+  bagend_ml:
     image: bagend-ml
     container_name: bagend-ml
     ports:
