@@ -10,8 +10,8 @@ dumpDockerImages() {
 }
 
 if [[ "$1" == '-d' ]]; then
-  dumpDockerImages
-  fi
+    dumpDockerImages
+    fi
 
 echo 'building bagend-event-api'
 git stash
@@ -33,6 +33,6 @@ docker build -t bagend-ml .
 cd ../event-store-api
 
 if [[ "$1" == '-r' ]]; then
-  echo 'restarting bagend.service'
-  systemctl restart bagend
-  fi
+    echo 'restarting bagend.service'
+    systemctl restart bagend
+    fi
