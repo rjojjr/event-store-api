@@ -36,4 +36,3 @@ if [[ "$1" == '-r' ]]; then
   echo 'restarting bagend.service'
   systemctl restart bagend
   fi
-
