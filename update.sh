@@ -4,6 +4,15 @@ echo 'Bagend Docker Image Updater'
 echo 'v0.0.1'
 echo '--------'
 
+dumpDockerImages() {
+    echo 'deleting cached docker images'
+    docker rmi -f $(docker images -aq)
+}
+
+if [[ "$1" == '-d' ]]; then
+  dumpDockerImages
+  elif [[ "$2" == '-d' ]]
+
 echo 'building bagend-event-api'
 git stash
 git pull

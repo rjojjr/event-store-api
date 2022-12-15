@@ -25,7 +25,17 @@ builder.Services.AddControllers()
     });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "Event Store API",
+        Description = "A dotnet application to persist generic events"
+    });
+    var filePath = Path.Combine(System.AppContext.BaseDirectory, "event-store-api.xml");
+    options.IncludeXmlComments(filePath);
+});
 
 var app = builder.Build();
 
