@@ -14,9 +14,7 @@ if [ "$1" == '-d' ]; then
     fi
 
 echo 'building bagend-event-api'
-git stash
 git pull
-git stash pop
 
 docker build -t bagend-event-api .
 
