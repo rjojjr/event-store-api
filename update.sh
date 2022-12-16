@@ -25,6 +25,11 @@ echo 'building bagend-web-scraper'
 git pull
 docker build -t bagend-web-scraper .
 
+cd ../bagend-ui
+echo 'building bagend-ui'
+git pull
+docker build -t bagend-ui .
+
 cd ../bagend-ml
 echo 'building bagend-ml'
 git pull
