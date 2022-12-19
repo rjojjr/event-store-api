@@ -34,7 +34,7 @@ services:
       ASPNETCORE_ENVIRONMENT: Development
       EVENT_API_CONFIG_URL: http://event_api:8091
       MongoDbConfig:Host: mongo
-      PolygonApiConfig:MaxThreads: 8
+      PolygonApiConfig:MaxThreads: 7
     depends_on:
       - "event_api"
 
