@@ -44,6 +44,32 @@ namespace event_store_api.Repository
             return _eventsCollection.Find(x => x.EventAttributes.Any(y => y.EventAttributeValue.EventAttributeValue == value && y.EventAttributeName == name)).ToList();
         }
 
+        public List<EventEntity> FindByEventAttributeValues(IList<string> filters)
+        {
+            return _eventsCollection.Find((x) => DoesEventMatchAttributeFilter(x, filters)).ToList();
+        }
+
+        private bool DoesEventMatchAttributeFilter(EventEntity doc, IList<string> filters)
+        {
+            int count = 0;
+            foreach (string filter in filters)
+            {
+                var name = filter.Split(":")[0];
+                var value = filter.Split(":")[1];
+
+                foreach (EventAttribute attribute in doc.EventAttributes)
+                {
+                    if (attribute.EventAttributeName.Equals(name) && attribute.EventAttributeValue.EventAttributeValue.Equals(value))
+                    {
+                        count++;
+                        break;
+                    }
+                }
+            }
+
+            return count == filters.Count();
+        }
+
         public async Task<IList<EventEntity>> GetAsync(string eventStream, string eventName)
         {
             Func<Task<IList<EventEntity>>> getByStreamAndName = async () => {

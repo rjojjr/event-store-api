@@ -45,6 +45,18 @@ namespace event_store_api.Controllers
             });
         }
 
+        [HttpGet("attributes")]
+        public IActionResult GetFilteredEvents([FromQuery] IList<string> filters)
+        {
+            return ExecuteWithExceptionHandler(() =>
+            {
+                _logger.LogInformation("received get generic event submissions by attributes request");
+                IList<GenericEventHttpModel> publishedEvents = _genericEventService.getEventsWithAttributes(filters);
+                _logger.LogInformation("completed get generic event submissions by attributes request");
+                return Ok(new GetEventsResponse(publishedEvents.Count(), publishedEvents));
+            });
+        }
+
         [HttpGet("attribute")]
         public IActionResult GetEventsByAttribute([FromQuery] EventAttributeSearchParameters parameters)
         {
