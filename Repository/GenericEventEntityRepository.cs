@@ -46,7 +46,17 @@ namespace event_store_api.Repository
 
         public List<EventEntity> FindByEventAttributeValues(IList<string> filters)
         {
-            return _eventsCollection.Find((x) => DoesEventMatchAttributeFilter(x, filters)).ToList();
+            var res = _eventsCollection.Find(x => true).ToList();
+            var filtered = new List<EventEntity>();
+            foreach(EventEntity entity in res)
+            {
+                if (DoesEventMatchAttributeFilter(entity, filters))
+                {
+                    filtered.Add(entity);
+                }
+            }
+
+            return filtered;
         }
 
         private bool DoesEventMatchAttributeFilter(EventEntity doc, IList<string> filters)
