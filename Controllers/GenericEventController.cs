@@ -45,8 +45,7 @@ namespace event_store_api.Controllers
             });
         }
 
-        [HttpGet]
-        [Route("attribute")]
+        [HttpGet("attribute")]
         public IActionResult GetEventsByAttribute([FromQuery] EventAttributeSearchParameters parameters)
         {
             return ExecuteWithExceptionHandler(() =>
