@@ -23,6 +23,7 @@ services:
       - /home/dev/event-store/models:/data/bagend-ml/models
     depends_on:
       - "event_api"
+      - "web_scraper"
 
   web_scraper:
     image: bagend-web-scraper

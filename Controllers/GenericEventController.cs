@@ -19,7 +19,7 @@ namespace event_store_api.Controllers
         }
 
         [HttpPost]
-        public IActionResult SubmitEvent(GenericEventHttpRequestModel genericEvent)
+        public IActionResult SubmitEvent([FromBody] GenericEventHttpRequestModel genericEvent)
         {
             return ExecuteWithExceptionHandler(() =>
             {
