@@ -1,7 +1,9 @@
-﻿using event_store_api.Config;
+﻿using System.Xml.Linq;
+using event_store_api.Config;
 using event_store_api.Models;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
+using SharpCompress.Common;
 using static MongoDB.Driver.WriteConcern;
 
 namespace event_store_api.Repository
@@ -46,18 +48,22 @@ namespace event_store_api.Repository
 
         public List<EventEntity> FindByEventAttributeValues(IList<string> filters)
         {
-            var res = _eventsCollection.Find(x => true).ToList();
-            var filtered = new List<EventEntity>();
-            foreach(EventEntity entity in res)
+           if(filters.Count() > 0)
             {
-                if (DoesEventMatchAttributeFilter(entity, filters))
+                var res = FindByEventAttributeValue(filters[0].Split(":")[0], filters[0].Split(":")[1]);
+                var filtered = new List<EventEntity>();
+                foreach (EventEntity entity in res)
                 {
-                    filtered.Add(entity);
+                    if (DoesEventMatchAttributeFilter(entity, filters))
+                    {
+                        filtered.Add(entity);
+                    }
                 }
+                return filtered;
             }
-
-            return filtered;
+            return _eventsCollection.Find(x => true).ToList();
         }
+
 
         private bool DoesEventMatchAttributeFilter(EventEntity doc, IList<string> filters)
         {
